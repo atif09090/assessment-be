@@ -27,8 +27,9 @@ export class AuthController {
 
   static login = async (req: Request, res: Response) => {
     try {
+      console.log("cookies",req.cookies)
       const { email } = req.body;
-      const user = await UserService.getMany({ where: { email } });
+      const user = await UserService.getSingle({ where: { email } });
       if (user) {
         const { password, ...rest } = user;
 
@@ -45,7 +46,9 @@ export class AuthController {
             user.id,
             user.version
           );
-          return res.status(200).json({ message: "login !", accessToken,refreshToken });
+          res.cookie('accessToken',accessToken,{httpOnly:true});
+          res.cookie('refreshToken',refreshToken,{httpOnly:true})
+          return res.status(200).json({ message: "login !"});
         }
 
         return res.status(401).json({ message: "invalid credentials" });
