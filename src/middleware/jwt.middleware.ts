@@ -1,9 +1,10 @@
 import jwt from "jsonwebtoken";
-import { JwtPayload, JwtRefreshPayload } from "../utils/jwt-type";
+import { JwtPayload, JwtRefreshPayload } from "../utils/Ijwt";
 
-const JWT_SECRET = process.env.JWT_SECRET;
-const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN; // Token expiry time
-const JWT_REFRESH_SECRET = process.env.JWT_REFRESH_SECRET;
+const JWT_SECRET = process.env.JWT_SECRET || "for-save";
+const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN || "5m"; // Token expiry time
+const JWT_REFRESH_SECRET = process.env.JWT_REFRESH_SECRET || "form-ref-save";
+
 
 export class JwtMiddleWare {
   static generateToken = (userId: string, email: string): string => {
@@ -13,11 +14,11 @@ export class JwtMiddleWare {
 
   static verifyToken = (token: string): Promise<JwtPayload> => {
     return new Promise((resolve, reject) => {
-      jwt.verify(token, JWT_SECRET, (err: any, decoded: JwtPayload) => {
+      jwt.verify(token, JWT_SECRET, (err: any, decoded: any) => {
         if (err) {
           return reject(err);
         }
-        resolve(decoded as JwtPayload);
+        resolve(decoded as JwtPayload); // Type assertion for JwtPayload
       });
     });
   };
@@ -29,7 +30,7 @@ export class JwtMiddleWare {
 
   static verifyRefreshToken = (token: string): Promise<JwtRefreshPayload> => {
     return new Promise((resolve, reject) => {
-      jwt.verify(token, JWT_REFRESH_SECRET, (err: any, decoded: JwtRefreshPayload) => {
+      jwt.verify(token, JWT_REFRESH_SECRET, (err: any, decoded: any) => {
         if (err) {
           return reject(err);
         }

@@ -1,5 +1,6 @@
 import { Model } from "sequelize";
 import User from "../models/user.model";
+import { IUser } from "../utils/IUser";
 
 export class UserService {
   static async create(createDto: any): Promise<any> {
@@ -7,8 +8,8 @@ export class UserService {
     return user.save();
   }
 
-  static async getMany(findDto: any): Promise<Model<any, any>> {
-    const users = await User.findOne(findDto)
-    return users;
+  static async getMany(findDto: any): Promise<IUser | null> {
+    const users = await User.findOne(findDto);
+    return users.dataValues;
   }
 }
