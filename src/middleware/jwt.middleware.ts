@@ -2,7 +2,7 @@ import jwt from "jsonwebtoken";
 import { JwtPayload, JwtRefreshPayload } from "../utils/Ijwt";
 
 const JWT_SECRET = process.env.JWT_SECRET || "for-save";
-const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN || "5m"; // Token expiry time
+const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN || "1m"; // Token expiry time
 const JWT_REFRESH_SECRET = process.env.JWT_REFRESH_SECRET || "form-ref-save";
 
 
@@ -23,12 +23,12 @@ export class JwtMiddleWare {
     });
   };
 
-  static generateRefreshToken = (userId: string, version: number): string => {
-    const payload: JwtRefreshPayload = { id: userId, version };
+  static generateRefreshToken = (userId: string,email:string ,version: number): string => {
+    const payload: JwtRefreshPayload = { id: userId,email:email,version };
     return jwt.sign(payload, JWT_REFRESH_SECRET);
   };
 
-  static verifyRefreshToken = (token: string): Promise<JwtRefreshPayload> => {
+  static verifyRefreshToken =  (token: string): Promise<JwtRefreshPayload> => {
     return new Promise((resolve, reject) => {
       jwt.verify(token, JWT_REFRESH_SECRET, (err: any, decoded: any) => {
         if (err) {

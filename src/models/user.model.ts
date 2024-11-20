@@ -7,7 +7,7 @@ const sequelize = initDB();
 const User = sequelize.define("User", {
   username: {
     type: DataTypes.STRING,
-    allowNull: false,
+    defaultValue:false
   },
   email: {
     type: DataTypes.STRING,
@@ -18,15 +18,27 @@ const User = sequelize.define("User", {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  isDeleted:{
-    type:DataTypes.BOOLEAN,
+  googleId:{
+    type:DataTypes.STRING,
     defaultValue:false
   },
-  version:{
-    type : DataTypes.BIGINT,
-    defaultValue:1,
+  isDeleted: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: false
+  },
+  version: {
+    type: DataTypes.BIGINT,
+    defaultValue: 1,
   }
 });
 
-sequelize.sync();
+
+// Sync the model with the database
+sequelize.sync()
+  .then(() => {
+    console.log("User table created successfully.");
+  })
+  .catch((error) => {
+    console.error("Error creating User table:", error);
+  });
 export default User;

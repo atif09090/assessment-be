@@ -12,7 +12,7 @@ import cookieParser from 'cookie-parser';
 
 // import main routes
 
-import mainRoute  from './routes/main.route'
+import mainRoute from './routes/main.route'
 
 // setup packages
 
@@ -32,7 +32,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 // apis routes
-app.use("/", mainRoute);
+app.use("/api", mainRoute);
 
 // throw 404 if URL not found
 app.all("*", function (req: Request, res: Response) {
@@ -42,14 +42,4 @@ app.listen(port, () => {
   console.log(`[server]: ⚡️ Server is running at http://localhost:${port}`);
 
   console.log("Press CTRL + C to stop the process. \n");
-
-  // (async function() {
-  //   // Establish connectivity
-  //   const listener = await ngrok.forward({ addr: 8080, authtoken_from_env: true });
-  
-  //   // Output ngrok url to console
-  //   console.log(`Ingress established at: ${listener.url()}`);
-  // })();
-  
-  // process.stdin.resume();
 });

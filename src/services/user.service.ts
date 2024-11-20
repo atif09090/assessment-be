@@ -1,4 +1,3 @@
-import { Model } from "sequelize";
 import User from "../models/user.model";
 import { IUser } from "../utils/IUser";
 
@@ -10,7 +9,8 @@ export class UserService {
 
   static async getSingle(findDto: any): Promise<IUser | null> {
     const users = await User.findOne(findDto);
-    return users.dataValues;
+    console.log("user=>>>",users)
+    return users?.dataValues || null;
   }
 
   static async getMany(): Promise<IUser[]> {

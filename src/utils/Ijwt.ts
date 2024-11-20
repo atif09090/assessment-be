@@ -5,5 +5,6 @@ export interface JwtPayload {
 
 export interface JwtRefreshPayload {
     id: string;
+    email:string;
     version: number;
 }
