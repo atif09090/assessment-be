@@ -2,7 +2,7 @@ import jwt from "jsonwebtoken";
 import { JwtPayload, JwtRefreshPayload } from "../utils/Ijwt";
 
 const JWT_SECRET = process.env.JWT_SECRET || "for-save";
-const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN || "1m"; // Token expiry time
+const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN || "1d"; // Token expiry time
 const JWT_REFRESH_SECRET = process.env.JWT_REFRESH_SECRET || "form-ref-save";
 
 

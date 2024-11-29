@@ -55,6 +55,9 @@ export class AuthController {
           );
           res.cookie('accessToken', accessToken, { httpOnly: true });
           res.cookie('refreshToken', refreshToken, { httpOnly: true })
+          res.cookie('userInfo',{
+            userId: user.id
+          }, {httpOnly: true})
           return res.status(200).json({ message: "login !" });
         }
 
