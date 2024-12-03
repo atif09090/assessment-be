@@ -79,7 +79,7 @@ export class AuthController {
 
   static async refreshToken(req: Request, res: Response) {
     try {
-      const ref_token = req.cookies?.refreshToken || req.cookies?.['next-auth.session-token'];
+      const ref_token = req.cookies?.refreshToken || req.cookies?.['refresh_token'];
       const isValidToken = await JwtMiddleWare.verifyRefreshToken(ref_token);
       const accessToken = await JwtMiddleWare.generateToken(
         isValidToken.id,

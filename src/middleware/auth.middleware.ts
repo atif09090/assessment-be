@@ -17,7 +17,7 @@ export class AuthMiddleWare {
   };
 
   static authenticateJWT = async (req: Request, res: Response, next: NextFunction) => {
-    const token = req.cookies?.accessToken || req.cookies['next-auth.csrf-token']; // token
+    const token = req.cookies?.accessToken || req.cookies['access_token']; // token
 
     if (!token) {
         return res.status(401).json({ message: 'Access token is missing',success:false });
