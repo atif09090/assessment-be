@@ -67,7 +67,7 @@ io.on("connection", async (socket) => {
 
   socket.on("dailylog-update", (data) => {
 
-   io.to(userId).emit('dailylog-updated', data)
+   io.emit('dailylog-updated', data)
   });
 
   socket.on("disconnect", () => {
